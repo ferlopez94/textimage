@@ -1,0 +1,9 @@
+{
+  "name": "textimage",
+  "version": "1.0.0",
+  "description": "Generate text based images from a source picture",
+  "main": "index.js",
+  "repository": "https://github.com/ferlopez94/textimage",
+  "author": "Fernando López Martínez",
+  "license": "MIT"
+}
