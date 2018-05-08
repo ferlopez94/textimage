@@ -6,6 +6,9 @@
   "repository": "https://github.com/ferlopez94/textimage",
   "author": "Fernando López Martínez",
   "license": "MIT",
+  "scripts": {
+     "start": "nodemon index.js"
+  },
   "dependencies": {
     "get-pixels": "^3.3.0"
   }
