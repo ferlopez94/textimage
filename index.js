@@ -105,7 +105,7 @@ getPixels("scene.png", function (err, pixels) {
          const color = letterColors[i - 1][j - 1];
 
          outputImage.fill(`rgba(${color[0]}, ${color[1]}, ${color[2]}, ${color[3] - 255})`)
-            .drawText((j - 1) * 15, 20 * i, "F");
+            .drawText((j - 1) * 15, 20 * i,  j % 2 === 0 ? '1' : '0');
       }
    }
 
@@ -113,5 +113,7 @@ getPixels("scene.png", function (err, pixels) {
       if (err) {
          console.log('err', err);
       }
+
+      console.log('Image created successfully');
    });
 });
