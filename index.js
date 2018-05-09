@@ -1,4 +1,5 @@
 const getPixels = require('get-pixels');
+const palette = require('get-rgba-palette');
 
 // Process:
 // Get colors for each pixel
@@ -21,7 +22,15 @@ getPixels("scene.png", function (err, pixels) {
    image.width = pixels.shape[0];
    image.height = pixels.shape[1];
    image.channels = pixels.shape[2];
+   
+   const letterWidth = 15;
+   const letterHeight = 20;
+   const horizontalLetters = parseInt(image.width / letterWidth);
+   const verticalLetters = parseInt(image.height / letterHeight);
+
    console.log('image', image);
+   console.log(`letterWidth = ${letterWidth}\nletterHeight = ${letterHeight}`);
+   console.log(`horizontalLetters = ${horizontalLetters}\nverticalLetters = ${verticalLetters}`);
 
    // Obtain 2-dimensional array, where each element contains the rgba values for a given pixel
    let i, j, index = 0;
@@ -46,4 +55,44 @@ getPixels("scene.png", function (err, pixels) {
    console.log('pixels.data.length', pixels.data.length);
    console.log('pixelColors.length', pixelColors.length);
    console.log('pixelColors[0].length', pixelColors[0].length);
+
+   // Crop 2-dimensional array to obtain values for subimages with the size of a letter
+   const letterColors = [];
+
+   for (let x = 0; x < image.height; x += letterHeight) {
+      if (image.height - x < letterHeight) {
+         // console.log(`x = ${x}. No support for letterHeight`);
+         break;
+      }
+
+      const rowLetterColors = [];
+
+      for (let y = 0; y < image.width; y += letterWidth) {
+         if (image.width - y < letterWidth) {
+            // console.log(`y = ${y}. No support for letterWidth`);
+            break;
+         }
+         let subimagePixelColors = [];
+
+         for (let i = x; i < x + letterHeight; i++) {
+            for (let j = y; j < y + letterWidth; j++) {
+               subimagePixelColors.push(...pixelColors[i][j]);
+            }
+         }
+
+         // Get predominant color for a given subimage
+         const colors = palette(subimagePixelColors, 1);
+
+         // Store predominant color in rowLetterColors array
+         rowLetterColors.push(colors[0]);
+      }
+
+      // Store predominant colors for each row
+      letterColors.push(rowLetterColors);
+   }
+
+   console.log('letterColors.length', letterColors.length);
+   console.log('letterColors[0].length', letterColors[0].length);
+   console.log('letterColors[0][0]', letterColors[0][0]);
+   console.log('letterColors[29][52]', letterColors[29][52]);
 });

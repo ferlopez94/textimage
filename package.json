@@ -7,10 +7,11 @@
   "author": "Fernando López Martínez",
   "license": "MIT",
   "scripts": {
-     "start": "node index.js",
-     "dev": "nodemon index.js"
+    "start": "node index.js",
+    "dev": "nodemon index.js"
   },
   "dependencies": {
-    "get-pixels": "^3.3.0"
+    "get-pixels": "^3.3.0",
+    "get-rgba-palette": "^2.0.1"
   }
 }
