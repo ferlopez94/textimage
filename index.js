@@ -24,14 +24,14 @@ getPixels("scene.png", function (err, pixels) {
    image.height = pixels.shape[1];
    image.channels = pixels.shape[2];
    
-   const letterWidth = 15;
-   const letterHeight = 20;
+   const letterWidth = 11;
+   const letterHeight = 15;
    const horizontalLetters = parseInt(image.width / letterWidth);
    const verticalLetters = parseInt(image.height / letterHeight);
 
    console.log('image', image);
-   console.log(`letterWidth = ${letterWidth}\nletterHeight = ${letterHeight}`);
-   console.log(`horizontalLetters = ${horizontalLetters}\nverticalLetters = ${verticalLetters}`);
+   console.log(`letterWidth = ${letterWidth}.\tletterHeight = ${letterHeight}`);
+   console.log(`horizontalLetters = ${horizontalLetters}.\tverticalLetters = ${verticalLetters}`);
 
    // Obtain 2-dimensional array, where each element contains the rgba values for a given pixel
    let i, j, index = 0;
@@ -98,14 +98,14 @@ getPixels("scene.png", function (err, pixels) {
    console.log('letterColors[29][52]', letterColors[29][52]);
 
    // Write letters
-   const outputImage = gm(image.width, image.height, "#000000").font('arial', 20);
+   const outputImage = gm(image.width, image.height, "#000000").font('arial', 14);
 
    for (i = 1; i <= verticalLetters; i++) {
       for (j = 1; j <= horizontalLetters; j++) {
          const color = letterColors[i - 1][j - 1];
 
          outputImage.fill(`rgba(${color[0]}, ${color[1]}, ${color[2]}, ${color[3] - 255})`)
-            .drawText((j - 1) * 15, 20 * i,  j % 2 === 0 ? '1' : '0');
+            .drawText((j - 1) * 11.1, 15 * i,  j % 2 === 0 ? '1' : '0');
       }
    }
 
