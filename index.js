@@ -1,5 +1,6 @@
 const getPixels = require('get-pixels');
 const palette = require('get-rgba-palette');
+const gm = require('gm');
 
 // Process:
 // Get colors for each pixel
@@ -95,4 +96,22 @@ getPixels("scene.png", function (err, pixels) {
    console.log('letterColors[0].length', letterColors[0].length);
    console.log('letterColors[0][0]', letterColors[0][0]);
    console.log('letterColors[29][52]', letterColors[29][52]);
+
+   // Write letters
+   const outputImage = gm(image.width, image.height, "#000000").font('arial', 20);
+
+   for (i = 1; i <= verticalLetters; i++) {
+      for (j = 1; j <= horizontalLetters; j++) {
+         const color = letterColors[i - 1][j - 1];
+
+         outputImage.fill(`rgba(${color[0]}, ${color[1]}, ${color[2]}, ${color[3] - 255})`)
+            .drawText((j - 1) * 15, 20 * i, "F");
+      }
+   }
+
+   outputImage.write("scene-text.jpg", function (err) {
+      if (err) {
+         console.log('err', err);
+      }
+   });
 });

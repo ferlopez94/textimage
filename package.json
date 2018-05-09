@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "get-pixels": "^3.3.0",
-    "get-rgba-palette": "^2.0.1"
+    "get-rgba-palette": "^2.0.1",
+    "gm": "^1.23.1"
   }
 }
